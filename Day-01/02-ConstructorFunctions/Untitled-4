@@ -1,0 +1,26 @@
+Create an OrderItem class that can be initialized with the following
+    productId,
+    units,
+    unitCost,
+    discount%
+    
+The OrderItem object should have the totalCost() method that returns the calculated total cost
+
+var oItem1 = new OrderItem(100, 10, 5, 0);
+oItem1.totalCost() / => 50
+
+var oItem1 = new OrderItem(100, 10, 5, 10);
+oItem1.totalCost() / => 45
+
+function OrderItem(id, units, unitCost, discount){
+    this.id = id;
+    this.units = units;
+    this.unitCost = unitCost;
+    this.discount = discount;
+}
+ OrderItem.prototype.totalCost = function(){
+        var total = this.units * this.unitCost;
+        return total * ((100-this.discount)/100);
+    }
+
+
