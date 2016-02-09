@@ -51,15 +51,18 @@
     })*/
 
     angular
-        .module("ng")
+        .module("myApp", [])
         .run(function($rootScope){
-            $rootScope.calculator = new SalaryCalculator();
-    });
+            $rootScope.appName = 'Salary Calculator - New';
+        })
+        .controller('calculatorController', function($scope){
+            $scope.calculator = new SalaryCalculator();
+        })
     </script>
 </head>
-<body ng-app>
-    <h1>Salary Calculator</h1>
-    <div class="content">
+<body ng-app="myApp">
+    <h1 ng-bind='appName'></h1>
+    <div class="content" ng-controller="calculatorController">
         <div class="field">
             <label for="">Basic :</label>
             <input type="number" id="txtBasic" ng-model="calculator.basic">
@@ -82,7 +85,7 @@
             <input type="button" value="Rest" id="btnReset" ng-click="calculator.reset()">
         </div>
         <div class="field">
-            <div id="divResult" ng-bind="calculator.salary">[Salary]</div>
+            <div id="divResult" ng-bind="calculator.salary | currency:'Rs'">[Salary]</div>
         </div>
     </div>
 </body>
