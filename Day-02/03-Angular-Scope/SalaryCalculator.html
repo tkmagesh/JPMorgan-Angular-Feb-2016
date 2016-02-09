@@ -49,21 +49,54 @@
                 scope.calculator.basic = $("#txtBasic").val().toInt();
             });
         });
+        scope.$watch('calculator.basic', function(newValue, oldValue){
+            $("#txtBasic").val(newValue);
+        });
+
+
+
+
         $("#txtHra").change(function(){
             scope.$apply(function(){
                 scope.calculator.hra = $("#txtHra").val().toInt();
             });
         });
+        scope.$watch('calculator.hra', function(newValue, oldValue){
+            $("#txtHra").val(newValue);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
         $("#txtDa").change(function(){
             scope.$apply(function(){
                 scope.calculator.da = $("#txtDa").val().toInt();
             });
         });
+        scope.$watch('calculator.da', function(newValue, oldValue){
+            $("#txtDa").val(newValue);
+        });
+
+
         $("#rangeTax").change(function(){
             scope.$apply(function(){
                 scope.calculator.tax = $("#rangeTax").val().toInt();
             });
         });
+        scope.$watch('calculator.tax', function(newValue, oldValue){
+            $("#rangeTax").val(newValue);
+        });
+
+
+
         $("#btnCalculate").click(function(){
             scope.$apply(function(){
                 scope.calculator.calculate();
@@ -74,18 +107,10 @@
         scope.$watch('calculator.salary', function(newValue, oldValue){
             $("#divResult").html(newValue);
         });
-        scope.$watch('calculator.basic', function(newValue, oldValue){
-            $("#txtBasic").val(newValue);
-        });
-        scope.$watch('calculator.hra', function(newValue, oldValue){
-            $("#txtHra").val(newValue);
-        });
-        scope.$watch('calculator.da', function(newValue, oldValue){
-            $("#txtDa").val(newValue);
-        });
-        scope.$watch('calculator.tax', function(newValue, oldValue){
-            $("#rangeTax").val(newValue);
-        });
+
+
+
+
         scope.$watch('calculator.tax', function(newValue, oldValue){
              $("#spanTax").html(newValue);
         });
