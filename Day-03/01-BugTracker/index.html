@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bug Tracker</title>
+    <style>
+        .statistics{
+            font-size: 18pt;
+        }
+        section{
+            margin-bottom: 10px;
+        }
+        .closed{
+             font-style: italic;
+            color : red;
+            text-decoration: line-through;
+            font-weight: bold;
+        }
+        ol{
+            width: 50%;
+            list-style: none;
+        }
+        li{
+            padding: 5px;
+            margin-bottom: 5px;
+            border : 1px solid gray;
+            background-color: #e7e7e7;
+            border-radius: 5px;
+        }
+        .bugname{
+            font-size: 16pt;
+        }
+    </style>
+    <!--
+    Use Cases
+    =========
+    1. Add a bug
+    2. Display the list of bugs
+    3. Toggle the closed status of the bug
+    4. Remove closed bugs
+    5. Display statistics
+    6. Search for the bugs
+    7. Sort the bugs
+    8. Improvise the bug displayed
+    9. Persist the bugs in localStorage
+    10. Display 'created at'
+    11. Persist the bugs in the server
+    12. Categorize the bugs
+    -->
+</head>
+<body>
+    <h1>Bug Tracker</h1>
+    <hr>
+    <div class="content">
+        <section class="statistics">
+            <span class="closed">2</span>
+            <span>/</span>
+            <span>5</span>
+        </section>
+        <section class="search">
+            <label for="">Search :</label>
+            <input type="text" name="" id="">
+            <label for="">Is Closed :</label>
+            <input type="checkbox" name="" id="">
+        </section>
+        <section class="sort">
+            <label for="">Order By:</label>
+            <input type="text" name="" id="">
+            <label for="">Descending ? :</label>
+            <input type="checkbox" name="" id="">
+        </section>
+        <section class="list">
+            <label for="">Bug :</label>
+            <input type="text" name="" id="">
+            <input type="button" value="Add Bug">
+            <input type="button" value="Remove Closed">
+            <ol>
+                <li><span  class="closed bugname">Data persistence failure</span></li>
+                <li><span class="bugname">Server communication disrupts</span></li>
+            </ol>
+        </section>
+    </div>
+</body>
+</html>
