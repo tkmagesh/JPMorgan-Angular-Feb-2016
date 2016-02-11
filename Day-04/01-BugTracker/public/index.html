@@ -80,17 +80,30 @@
             return Bug;
         });
 
+        bugTrackerApp.factory("bugService", function($http, Bug){
+            function getAllBugs(){
+                return $http
+                        .get('http://localhost:3000/bugs')
+                        .then(function(response){
+                            var result = response.data.map(function(bugData){
+                                return new Bug(bugData);
+                            });
+                            return result;
+                        });
+            }
+            return {
+                getAll : getAllBugs
+            }
+        })
 
+        bugTrackerApp.controller("bugsController", function($scope, Bug, $http, bugService){
+            $scope.bugs = bugService.getAll();
+            bugService
+                .getAll()
+                .then(function(bugs){
+                    $scope.bugs = bugs;
+                })
 
-        bugTrackerApp.controller("bugsController", function($scope, Bug, $http){
-            $scope.bugs = [];
-            $http
-                .get('http://localhost:3000/bugs')
-                .then(function(response){
-                    $scope.bugs = response.data.map(function(bugData){
-                        return new Bug(bugData);
-                    });
-                });
             $scope.addNew = function(){
                 var newBug = new Bug({name : $scope.newBugName});
                 $http
