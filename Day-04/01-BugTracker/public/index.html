@@ -56,7 +56,7 @@
                 clear()
                 length
 
-    10. Display 'created at'
+    10. Display 'created at' - done
     11. Persist the bugs in the server
     12. Categorize the bugs
     -->
@@ -64,14 +64,6 @@
     <script>
         var bugTrackerApp = angular.module("bugTrackerApp", []);
 
-       /* bugTrackerApp.value("Bug", function(defaults){
-            defaults = defaults || {};
-            this.name = defaults.name || '';
-            this.isClosed = defaults.isClosed || false;
-            this.toggle = function(){
-                this.isClosed = !this.isClosed;
-            };
-        })*/
 
         bugTrackerApp.value('defaultBugName', '[New Bug Name]')
 
@@ -88,67 +80,24 @@
             return Bug;
         });
 
-        bugTrackerApp.factory("bugStorage", function(Bug){
-            var maxBugId = 0;
-            var storage = window.localStorage;
-            function addBug(bugName){
-                var newBug = new Bug({
-                    id : ++maxBugId,
-                    name : bugName,
-                    isClosed : false
-                });
-                saveBug(newBug);
-                return newBug;
-            }
 
-            function getAllBugs(){
-                var result = [];
-                for(var i=0; i<storage.length; i++){
-                    var key = storage.key(i);
-                    var dataAsString = storage.getItem(key);
-                    var data = angular.fromJson(dataAsString);
-                    var bug = new Bug(data);
-                    maxBugId = maxBugId > bug.id ? maxBugId : bug.id;
-                    result.push(bug);
-                }
-                return result;
-            }
 
-            function saveBug(bug){
-                storage.setItem(bug.id, angular.toJson(bug));
-            }
+        bugTrackerApp.controller("bugsController", function($scope, Bug){
+            $scope.bugs = [];
 
-            function removeBug(bug){
-                storage.removeItem(bug.id);
-            }
-
-            //revealing module pattern
-            return {
-                getAll : getAllBugs,
-                add : addBug,
-                save : saveBug,
-                remove : removeBug
-            };
-        })
-
-        bugTrackerApp.controller("bugsController", function($scope, bugStorage){
-            $scope.bugs = bugStorage.getAll();
-            //$scope.newBugName = '';
             $scope.addNew = function(){
-                var newBug = bugStorage.add($scope.newBugName);
+                var newBug = new Bug();
                 $scope.bugs.push(newBug);
                 $scope.newBugName = '';
             };
 
             $scope.toggleBug = function(bug){
                 bug.toggle();
-                bugStorage.save(bug);
             };
 
             $scope.removeClosed = function(){
                 for(var i=$scope.bugs.length-1; i>=0; i--)
                     if ($scope.bugs[i].isClosed){
-                        bugStorage.remove($scope.bugs[i]);
                          $scope.bugs.splice(i,1);
                     }
             };
@@ -169,12 +118,7 @@
             };
         });
 
-        bugTrackerApp.run(function(bugStorage){
-            if (bugStorage.getAll().length === 0){
-                bugStorage.add("Data validation failure");
-                bugStorage.add("Server communication error");
-            }
-        });
+
     </script>
 </head>
 <body ng-app="bugTrackerApp">
