@@ -82,22 +82,35 @@
 
 
 
-        bugTrackerApp.controller("bugsController", function($scope, Bug){
+        bugTrackerApp.controller("bugsController", function($scope, Bug, $http){
             $scope.bugs = [];
-
+            $http
+                .get('http://localhost:3000/bugs')
+                .then(function(response){
+                    $scope.bugs = response.data.map(function(bugData){
+                        return new Bug(bugData);
+                    });
+                });
             $scope.addNew = function(){
-                var newBug = new Bug();
-                $scope.bugs.push(newBug);
+                var newBug = new Bug({name : $scope.newBugName});
+                $http
+                    .post('http://localhost:3000/bugs', newBug)
+                    .then(function(response){
+                        var bug = new Bug(response.data);
+                        $scope.bugs.push(bug);
+                    })
                 $scope.newBugName = '';
             };
 
             $scope.toggleBug = function(bug){
                 bug.toggle();
+                $http.put('http://localhost:3000/bugs/' + bug.id, bug);
             };
 
             $scope.removeClosed = function(){
                 for(var i=$scope.bugs.length-1; i>=0; i--)
                     if ($scope.bugs[i].isClosed){
+                         $http.delete('http://localhost:3000/bugs/' + $scope.bugs[i].id);
                          $scope.bugs.splice(i,1);
                     }
             };

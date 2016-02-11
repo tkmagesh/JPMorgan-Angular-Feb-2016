@@ -19,16 +19,15 @@
       "createdAt": "2016-02-03T04:05:19.327Z"
     },
     {
-      "id": 6,
-      "name": "sadf;af;sajfl;sadf",
-      "isClosed": false,
-      "createdAt": "2016-02-06T07:24:36.730Z"
-    },
-    {
       "id": 7,
       "name": "Application not rseponding",
       "isClosed": false,
       "createdAt": "2016-02-03T04:06:11.297Z"
+    },
+    {
+      "id": 8,
+      "name": "Server not responding for data",
+      "isClosed": false
     }
   ],
   "users": []
