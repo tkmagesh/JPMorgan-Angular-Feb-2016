@@ -3,54 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Routing Demo</title>
-    <script src="angular.js"></script>
-    <script src="angular-route.js"></script>
-    <script>
-        var myApp = angular.module("myApp", ['ngRoute']);
-        myApp.config(function($routeProvider){
-            $routeProvider
-                .when('/products', {
-                    //template : '<h2>Products</h2>'
-                    templateUrl : 'templates/productsTemplate.html',
-                    controller : 'productsController'
-                })
-                .when('/products/:pid',{
-                    templateUrl : 'templates/productInfoTemplate.html',
-                    controller : 'productInfoController'
-                })
-                .when('/customers', {
-                    //template : '<h2>Customers</h2>'
-                    templateUrl : 'templates/customersTemplate.html'
-                })
-                .otherwise({
-                    redirectTo : '/products'
-                });
-        });
-        myApp.service("productService", function(){
-            this.getAll = function(){
-                return [
-                    {id : 1, name : "Pen", cost : 5, units : 100, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eligendi sunt ipsa eum soluta porro ipsum, eaque assumenda consectetur ad dolor expedita provident nihil sit debitis iste! Libero, aliquid, quam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos vel quidem facere odit ipsum amet illum officiis voluptas, labore commodi dolor voluptatum ratione id, dolore eius, eos optio itaque quae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus ratione iure, accusantium ab voluptatibus, distinctio. Officia laudantium, fugiat enim consequatur aut laboriosam repellat aliquam tempore optio, at voluptatem accusantium dolore.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem maxime aperiam quisquam, accusamus minus amet sed magni sequi error eum necessitatibus eveniet, ullam asperiores ad nobis assumenda natus consectetur exercitationem."},
-                    {id : 2, name : "Hen", cost : 100, units : 20, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eligendi sunt ipsa eum soluta porro ipsum, eaque assumenda consectetur ad dolor expedita provident nihil sit debitis iste! Libero, aliquid, quam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos vel quidem facere odit ipsum amet illum officiis voluptas, labore commodi dolor voluptatum ratione id, dolore eius, eos optio itaque quae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus ratione iure, accusantium ab voluptatibus, distinctio. Officia laudantium, fugiat enim consequatur aut laboriosam repellat aliquam tempore optio, at voluptatem accusantium dolore.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem maxime aperiam quisquam, accusamus minus amet sed magni sequi error eum necessitatibus eveniet, ullam asperiores ad nobis assumenda natus consectetur exercitationem."},
-                    {id : 3, name : "Ten", cost : 10, units : 10, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eligendi sunt ipsa eum soluta porro ipsum, eaque assumenda consectetur ad dolor expedita provident nihil sit debitis iste! Libero, aliquid, quam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos vel quidem facere odit ipsum amet illum officiis voluptas, labore commodi dolor voluptatum ratione id, dolore eius, eos optio itaque quae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus ratione iure, accusantium ab voluptatibus, distinctio. Officia laudantium, fugiat enim consequatur aut laboriosam repellat aliquam tempore optio, at voluptatem accusantium dolore.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem maxime aperiam quisquam, accusamus minus amet sed magni sequi error eum necessitatibus eveniet, ullam asperiores ad nobis assumenda natus consectetur exercitationem."},
-                    {id : 4, name : "Zen", cost : 100000, units : 0, desc : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A eligendi sunt ipsa eum soluta porro ipsum, eaque assumenda consectetur ad dolor expedita provident nihil sit debitis iste! Libero, aliquid, quam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos vel quidem facere odit ipsum amet illum officiis voluptas, labore commodi dolor voluptatum ratione id, dolore eius, eos optio itaque quae.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus ratione iure, accusantium ab voluptatibus, distinctio. Officia laudantium, fugiat enim consequatur aut laboriosam repellat aliquam tempore optio, at voluptatem accusantium dolore.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem maxime aperiam quisquam, accusamus minus amet sed magni sequi error eum necessitatibus eveniet, ullam asperiores ad nobis assumenda natus consectetur exercitationem."}
-                ]
-            };
-            this.getById = function(pid){
-                return this.getAll().filter(function(product){
-                    return product.id === pid;
-                })[0];
-            };
-        });
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-route.js"></script>
+    <script src="myApp/products/products.js"></script>
+    <script src="myApp/products/productInfoController.js"></script>
+    <script src="myApp/products/productService.js"></script>
+    <script src="myApp/products/productsController.js"></script>
 
-        myApp.controller("productsController", function($scope, productService){
-            $scope.products = productService.getAll();
-        });
+    <script src="myApp/customers/customers.js"></script>
 
-        myApp.controller('productInfoController', function($scope, $routeParams, productService){
-            var productId = parseInt($routeParams.pid,10);
-            $scope.product = productService.getById(productId);
-        })
-    </script>
+    <script src="myApp/myApp.js"></script>
+
 </head>
 <body ng-app="myApp">
     <h1>Flopkart</h1>
