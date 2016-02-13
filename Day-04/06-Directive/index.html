@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-1.12.0.js"></script>
+    <script src="angular.js"></script>
+    <script>
+        var myApp = angular.module('myApp', []);
+        myApp.directive('helloWorld', function(){
+            return {
+                restrict : 'EA',
+/*                template : ,*/
+                templateUrl : 'helloWorldTemplate.html',
+                scope : {
+                    'msg' : '=',
+                    onclear : '&'
+                },
+                controller : function($scope){
+                    $scope.clearMessage = function(){
+                        $scope.msg = '';
+                        $scope.onclear();
+                    };
+                    $scope.setMessage = function(msg){
+                        $scope.msg = msg;
+                    };
+                },
+                replace : true,
+                link : function($scope, $element, $attr){
+                            $element.click(function(){
+                                $element.find("#h1Element").html($scope.msg);
+                            });
+                        }
+            };
+        });
+        
+        myApp.controller('testController', function($scope){
+            $scope.setMessage = function(msg){
+                $scope.message = msg;
+            };
+            $scope.onMessageClear = function(){
+                alert('message cleared');
+            };
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="testController">
+    <div>[{{message}}]</div>
+    <input type="button" value="Set Message" ng-click="setMessage('Have a nice day!')">
+    <hello-world msg='message' onclear="onMessageClear()">This is a sample div</hello-world>
+</body>
+</html>
